@@ -5,8 +5,6 @@ include __DIR__ . '/otherFunction/functionPartials.php';
 
 session_start();
 
-var_dump($access);
-
 $users = [
     [
         "userName" => "Gino Ginetti",
@@ -14,7 +12,7 @@ $users = [
     ],
     [
         "userName" => "Riccardo Stellantis",
-        "password" => "5678910"
+        "password" => "123456"
     ],
     [
         "userName" => "Mario Rossi",
@@ -26,23 +24,23 @@ $users = [
     ],
     [
         "userName" => "Luigi Verdi",
-        "password" => "081833"
+        "password" => "123456"
     ],
     [
         "userName" => "Francesca Miele",
-        "password" => "223890"
+        "password" => "123456"
     ],
     [
         "userName" => "Carlito Triola",
-        "password" => "15081"
+        "password" => "123456"
     ],
     [
         "userName" => "Iovine Checchia",
-        "password" => "1563"
+        "password" => "123456"
     ],
     [
         "userName" => "Roberto Bolle",
-        "password" => "616363"
+        "password" => "123456"
     ],
     [
         "userName" => "Fedez",
@@ -50,20 +48,36 @@ $users = [
     ]
 ];
 
-//Ciclo gli elementi da controllare
-foreach($users as $access) {
-    // Faccio un controllo all'interno del ciclo in modo da verificare se quello che c'è scritto nella chiamata GET sia uguale a quello scritto nell'array
-    if(isset($_GET["userName"]) === $access["userName"] && isset($_GET["password"]) === $access["password"]) {
-        $_SESSION["userName"] = $_GET["userName"];
-        $_SESSION["password"] = $_GET["password"];?>
+$loginTrue = false;
 
-        <h1> Benvenuto <?php $_SESSION["userName"] ?> </h1>
+$welcome = false;
+// Abbreviazione del ternario. In sostanza quando SESSION è vuoto SESSION diventa false (ha senso se si apre prima login di index.php)
+/*$_SESSION['userName'] = $_SESSION['userName'] ?? false;
+$_SESSION['password'] = $_SESSION['password'] ?? false;*/
 
-    <?php } else { ?>
-        <h1>Non sei registrato e non puoi loggarti</h1>
-    <?php }
+var_dump($_SESSION["userName"]);
 
-} ?>
+    foreach($users as $access) {
+        // Faccio un controllo all'interno del ciclo in modo da verificare se quello che c'è scritto nella chiamata GET sia uguale a quello scritto nell'array
+        if($_SESSION["userName"] === $access["userName"] && $_SESSION["password"] === $access["password"]) { ?>
+            
+            <!-- INTERRUZIONE CICLO AL POSTO DEL BREACK!-->
+            <?php $welcome = true; 
+            if($welcome === true) { ?>
+            <h1> Benvenuto <?php echo $_SESSION["userName"] ?> </h1>
+            <?php $welcome = false ?>
+            
+            <?php $loginTrue = true ?>
+            <?php } ?>
+    <?php } ?>
+
+    <?php } ?>
+    
+    <?php if(!$loginTrue) { ?>
+            <h1>Non sei registrato e non puoi loggarti</h1>
+        <?php }
+
+
 
 
 

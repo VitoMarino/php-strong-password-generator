@@ -15,8 +15,13 @@ session_start();
 include "./function.php";
 include __DIR__ . '/otherFunction/functionPartials.php';
 
-$_SESSION["userName"];
-$_SESSION["password"];
+// Abbiamo dovuto fare questa condizione perchè se avessimo fatto senza l'if, all'inizio la chiamata GET era vuota e quindi avrebbe dato errore dato che non era definita. 
+if(isset($_GET["userName"]) && (isset($_GET["password"]))){
+    $_SESSION["userName"] = $_GET["userName"];
+    $_SESSION["password"] = $_GET["password"];
+
+    header('Location: ./login.php');
+}
 
 ?>
 
@@ -62,7 +67,7 @@ $_SESSION["password"];
     </header>
 
     <main>
-        <form class="d-flex justify-content-center align-items-center" action="./login.php" method="GET">
+        <form class="d-flex justify-content-center align-items-center" action="./index.php" method="GET">
             <label for="userName">Username:</label>
             <input class="me-2" type="text" name="userName" id="userName">
             
