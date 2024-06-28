@@ -12,8 +12,11 @@ all pagina di login (login.php).
 
 session_start();
 
-$_SESSION["userName"]= "Gina Ginetti";
-$_SESSION["password"]= "password";
+include "./function.php";
+include __DIR__ . '/otherFunction/functionPartials.php';
+
+$_SESSION["userName"];
+$_SESSION["password"];
 
 ?>
 
